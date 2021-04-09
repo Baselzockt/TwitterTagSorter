@@ -1,54 +1,47 @@
 package ch.baselzock.twittertagsorter;
 
+import ch.baselzock.twittertagsorter.handler.Handler;
+import ch.baselzock.twittertagsorter.helper.PooledConnectionHelper;
+import ch.baselzock.twittertagsorter.sorter.Sorter;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jms.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws JMSException {
-        final ActiveMQConnectionFactory connectionFactory = getActiveMqFactory();
+        LOGGER.debug("Getting ActiveMQConnectionFactory for endpoint: {}", System.getenv("ENDPOINT"));
+        final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(System.getenv("ENDPOINT"));
+        LOGGER.debug("Getting pooled Connection Factory");
         final PooledConnectionFactory pooledConnectionFactory =
-                createPooledConnectionFactory(connectionFactory);
+                PooledConnectionHelper.createPooledConnectionFactory(connectionFactory);
+        LOGGER.debug("Getting connection");
         final Connection connection = connectionFactory.createConnection();
+        LOGGER.debug("Starting connection");
         connection.start();
-        while (true) {
-            final Session session = connection.createSession(true, Session.SESSION_TRANSACTED);
-            final Destination consumerDestination = session.createQueue("Twitter");
-            final MessageConsumer consumer = session.createConsumer(consumerDestination);
-            final Message message = consumer.receive(1000);
-
-            if (message == null) {
-                continue;
-            }
-
-            if (message instanceof TextMessage msg) {
-                String json = msg.getText();
-            }
-
-        }
-    }
-
-    private static ActiveMQConnectionFactory getActiveMqFactory() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(System.getenv("ENDPOINT"));
-        RedeliveryPolicy policy = connectionFactory.getRedeliveryPolicy();
-        policy.setInitialRedeliveryDelay(50);
-        policy.setBackOffMultiplier(1);
-        policy.setUseExponentialBackOff(true);
-        policy.setMaximumRedeliveries(1);
-        connectionFactory.setRedeliveryPolicy(policy);
-        return connectionFactory;
-    }
-
-    private static PooledConnectionFactory
-    createPooledConnectionFactory(ActiveMQConnectionFactory connectionFactory) {
-        final PooledConnectionFactory pooledConnectionFactory =
-                new org.apache.activemq.pool.PooledConnectionFactory();
-        pooledConnectionFactory.setConnectionFactory(connectionFactory);
-        pooledConnectionFactory.setMaxConnections(10);
-        return pooledConnectionFactory;
+        LOGGER.debug("Creating Sorter");
+        Sorter sorter = new Sorter();
+        LOGGER.debug("Adding tags");
+        List<String> tags = new ArrayList<>();
+        tags.add("covid");
+        tags.add("Covid");
+        tags.add("Homeoffice");
+        tags.add("dürfen");
+        tags.add("Impfen");
+        tags.add("Leben");
+        sorter.setTags(tags);
+        LOGGER.debug("Creating Handler");
+        Handler handler = new Handler(sorter, connection);
+        LOGGER.debug("Start handling tweets from activemq");
+        handler.Handle();
+        connection.close();
     }
 
 }

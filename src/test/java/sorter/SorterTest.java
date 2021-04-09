@@ -38,7 +38,8 @@ public class SorterTest {
 
     @Test
     void testNull() {
-        List<String> tags = sorter.getMatchingTags(null);
+        Sorter nullSorter = new Sorter();
+        List<String> tags = nullSorter.getMatchingTags(null);
         assertNotNull(tags);
         assertTrue(tags.isEmpty());
     }

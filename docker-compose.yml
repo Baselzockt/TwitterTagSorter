@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  activemq:
+    networks:
+      - twittersort
+    image: rmohr/activemq:5.15.9-alpine
+    container_name: activemq
+    environment:
+      - "TZ=Europe/Amsterdam"
+    ports:
+      - "80:8161"
+      - "61616:61616"
+      - "61613:61613"
+    healthcheck:
+      test: [ "CMD","curl","-f","http://localhost:8161/admin" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+  tweet-sorter:
+    networks:
+      - twittersort
+    depends_on:
+      - activemq
+    image: baselzockt/twitter-tag-sorter
+    restart: on-failure
+    environment:
+      - "ENDPOINT=tcp://activemq:61616"
+  twitter-api:
+    networks:
+      - twittersort
+    depends_on:
+      - activemq
+    image: baselzockt/twitterapi
+    restart: on-failure
+    environment:
+      - "ENDPOINT=activemq:61613"
+networks:
+  twittersort:
+    name: twittersort

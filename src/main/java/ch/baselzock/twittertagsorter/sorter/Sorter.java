@@ -8,6 +8,10 @@ import java.util.List;
 public class Sorter {
     private List<String> tags;
 
+    public Sorter() {
+        this.tags = new ArrayList<>();
+    }
+
     public List<String> getMatchingTags(String text) {
         ArrayList<String> tags = new ArrayList<>();
         if (text == null) {

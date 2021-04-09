@@ -31,17 +31,26 @@ public class JsonConverterTest {
     void testTweetToJson() {
 
         String expected = "{\"text\":\"To make room for more expression, we will now count all emojis as equal—including" +
-                " those with gender and skin t… https://t.co/MkGjXf9aXm\"}";
-
-        String json = "{" +
-                " \"created_at\": \"Wed Oct 10 20:19:24 +0000 2018\"," +
-                " \"id\": 1050118621198921728," +
-                " \"id_str\": \"1050118621198921728\"," +
-                " \"text\": \"To make room for more expression, we will now count all emojis as equal—including" +
                 " those with gender and skin t… https://t.co/MkGjXf9aXm\"," +
-                " \"user\": {}," +
-                " \"entities\": {}" +
-                "}";
+                "\"id\":1050118621198921728,\"user\":{" +
+                "\"id\":0," +
+                "\"name\":null," +
+                "\"description\":null," +
+                "\"verified\":false," +
+                "\"protected\":false," +
+                "\"created_at\":null},\"retweetCount\":0,\"created_at\":\"Wed Oct 10 20:19:24 +0000 2018\"}";
+
+        String json = "{\"text\":\"To make room for more expression, we will now count all emojis as equal—including" +
+                " those with gender and skin t… https://t.co/MkGjXf9aXm\"," +
+                "\"id\":1050118621198921728," +
+                "\"user\":{" +
+                "\"id\":0," +
+                "\"name\":null," +
+                "\"description\":null," +
+                "\"verified\":false," +
+                "\"protected\":false," +
+                "\"created_at\":null}," +
+                "\"retweetCount\":0,\"created_at\":\"Wed Oct 10 20:19:24 +0000 2018\"},";
         Tweet tweet = converter.convertToTweet(json);
         assertNotNull(tweet);
         String actual = converter.convertToString(tweet);
