@@ -9,8 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jms.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 
 public class Main {
@@ -29,14 +28,9 @@ public class Main {
         LOGGER.debug("Creating Sorter");
         Sorter sorter = new Sorter();
         LOGGER.debug("Adding tags");
-        List<String> tags = new ArrayList<>();
-        tags.add("covid");
-        tags.add("Covid");
-        tags.add("Homeoffice");
-        tags.add("dürfen");
-        tags.add("Impfen");
-        tags.add("Leben");
-        sorter.setTags(tags);
+        String[] tags = System.getenv("TAGS").split(",");
+        sorter.setTags(Arrays.stream(tags).toList());
+        LOGGER.debug("Added {} tags", tags.length);
         LOGGER.debug("Creating Handler");
         Handler handler = new Handler(sorter, connection);
         LOGGER.debug("Start handling tweets from activemq");
