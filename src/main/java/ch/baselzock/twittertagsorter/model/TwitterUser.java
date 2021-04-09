@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TwitterUser {
-    private int id;
+    private long id;
     private String name;
     private String description;
     @JsonAlias("protected")
@@ -14,11 +14,11 @@ public class TwitterUser {
     @JsonAlias("created_at")
     private String createdAt;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

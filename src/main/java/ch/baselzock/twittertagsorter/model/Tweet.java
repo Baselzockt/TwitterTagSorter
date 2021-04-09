@@ -11,7 +11,7 @@ public class Tweet {
     private long id;
     private TwitterUser user;
     @JsonAlias("retweet_count")
-    private int retweetCount;
+    private long retweetCount;
 
     public String getText() {
         return text;
@@ -47,11 +47,11 @@ public class Tweet {
         this.user = user;
     }
 
-    public int getRetweetCount() {
+    public long getRetweetCount() {
         return retweetCount;
     }
 
-    public void setRetweetCount(int retweetCount) {
+    public void setRetweetCount(long retweetCount) {
         this.retweetCount = retweetCount;
     }
 }
