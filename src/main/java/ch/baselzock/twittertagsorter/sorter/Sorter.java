@@ -1,7 +1,5 @@
 package ch.baselzock.twittertagsorter.sorter;
 
-import ch.baselzock.twittertagsorter.model.Tweet;
-
 import java.util.ArrayList;
 import java.util.List;
 

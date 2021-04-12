@@ -37,6 +37,11 @@ services:
     restart: on-failure
     environment:
       - "ENDPOINT=activemq:61613"
+      - "CONSOLELOGGING=1"
+      - "APIKEY=${APIKEY}"
+      - "APISECRET=${APISECRET}"
+      - "ACCESSKEY=${ACCESSKEY}"
+      - "ACCESSSECRET=${ACCESSSECRET}"
 networks:
   twittersort:
     name: twittersort

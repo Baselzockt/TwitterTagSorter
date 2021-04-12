@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ch.baselzock.twittertagsorter</OriginalElement>
+  <nodes>
+    <node x="138.13280662151993" y="795.5">ch.baselzock.twittertagsorter.converter.ConverterFactory</node>
+    <node x="280.6175" y="586.0">ch.baselzock.twittertagsorter.converter.JsonConverter</node>
+    <node x="285.5" y="239.0">ch.baselzock.twittertagsorter.model.Tweet</node>
+    <node x="566.9899962377729" y="1254.8589164785556">ch.baselzock.twittertagsorter.Main</node>
+    <node x="68.60200000000003" y="1073.4311512415352">ch.baselzock.twittertagsorter.handler.Handler</node>
+    <node x="232.16666666666669" y="0.0">ch.baselzock.twittertagsorter.model.TwitterUser</node>
+    <node x="693.3297610985705" y="1006.7844243792325">ch.baselzock.twittertagsorter.helper.PooledConnectionHelper</node>
+    <node x="136.61333333333334" y="456.0">ch.baselzock.twittertagsorter.converter.Converter</node>
+    <node x="10.5" y="597.0">ch.baselzock.twittertagsorter.converter.ConverterType</node>
+    <node x="526.6728404815651" y="727.2573363431151">ch.baselzock.twittertagsorter.sorter.Sorter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ch.baselzock.twittertagsorter.Main" target="ch.baselzock.twittertagsorter.handler.Handler" relationship="CREATE">
+      <point x="-74.49999623777285" y="22.641083521444443" />
+      <point x="536.0" y="1328.5" />
+      <point x="536.0" y="1373.5" />
+      <point x="177.99999999999994" y="139.0688487584648" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.model.Tweet" target="ch.baselzock.twittertagsorter.model.TwitterUser" relationship="DEPENDENCY">
+      <point x="0.0" y="-83.5" />
+      <point x="359.5" y="214.0" />
+      <point x="327.667" y="214.0" />
+      <point x="3.3333333328755543E-4" y="94.5" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.Main" target="ch.baselzock.twittertagsorter.sorter.Sorter" relationship="CREATE">
+      <point x="-74.49999623777285" y="8.352144436685194E-5" />
+      <point x="536.0" y="1305.859" />
+      <point x="536.0" y="1128.0" />
+      <point x="650.673" y="1128.0" />
+      <point x="1.595184348843759E-4" y="50.99966365688488" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.handler.Handler" target="ch.baselzock.twittertagsorter.model.Tweet" relationship="DEPENDENCY">
+      <point x="-178.0" y="15.0" />
+      <point x="-22.0" y="1249.4311512415352" />
+      <point x="-22.0" y="322.5" />
+      <point x="-74.0" y="0.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.converter.JsonConverter" target="ch.baselzock.twittertagsorter.model.Tweet" relationship="DEPENDENCY">
+      <point x="4.999999999881766E-4" y="-73.0" />
+      <point x="383.618" y="431.0" />
+      <point x="359.5" y="431.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.handler.Handler" target="ch.baselzock.twittertagsorter.handler.Handler" relationship="DEPENDENCY">
+      <point x="177.99999999999994" y="139.0688487584648" />
+      <point x="536.0" y="1373.5" />
+      <point x="536.0" y="1373.5" />
+      <point x="177.99999999999994" y="139.0688487584648" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.handler.Handler" target="ch.baselzock.twittertagsorter.converter.ConverterType" relationship="DEPENDENCY">
+      <point x="-161.10200000000003" y="-161.0" />
+      <point x="-30.0" y="62.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.Main" target="ch.baselzock.twittertagsorter.Main" relationship="DEPENDENCY">
+      <point x="-74.49999623777285" y="-14.999916478555633" />
+      <point x="552.0" y="1290.859" />
+      <point x="552.0" y="1290.859" />
+      <point x="-74.49999623777285" y="-14.999916478555633" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.handler.Handler" target="ch.baselzock.twittertagsorter.sorter.Sorter" relationship="DEPENDENCY">
+      <point x="178.0" y="154.0688487584648" />
+      <point x="1232.8297610985705" y="1388.5" />
+      <point x="1232.8297610985705" y="778.2573363431151" />
+      <point x="124.0" y="0.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.converter.JsonConverter" target="ch.baselzock.twittertagsorter.converter.JsonConverter" relationship="DEPENDENCY">
+      <point x="4.999999999881766E-4" y="73.0" />
+      <point x="383.618" y="764.0" />
+      <point x="383.618" y="764.0" />
+      <point x="4.999999999881766E-4" y="73.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.converter.ConverterFactory" target="ch.baselzock.twittertagsorter.converter.ConverterType" relationship="DEPENDENCY">
+      <point x="-137.49980662151992" y="0.0" />
+      <point x="120.0" y="835.0" />
+      <point x="120.0" y="889.5" />
+      <point x="100.5" y="889.5" />
+      <point x="-15.0" y="62.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.handler.Handler" target="ch.baselzock.twittertagsorter.sorter.Sorter" relationship="TO_ONE">
+      <point x="178.0" y="-156.14672686230278" />
+      <point x="635.673" y="1078.2844243792324" />
+      <point x="-14.999840481565116" y="51.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.converter.Converter" target="ch.baselzock.twittertagsorter.model.Tweet" relationship="DEPENDENCY">
+      <point x="-3.3333333334439885E-4" y="-39.0" />
+      <point x="239.613" y="431.0" />
+      <point x="359.5" y="431.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.converter.ConverterFactory" target="ch.baselzock.twittertagsorter.converter.JsonConverter" relationship="CREATE">
+      <point x="1.9337848004852276E-4" y="-39.5" />
+      <point x="275.633" y="764.0" />
+      <point x="383.618" y="764.0" />
+      <point x="4.999999999881766E-4" y="73.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.model.Tweet" target="ch.baselzock.twittertagsorter.model.TwitterUser" relationship="TO_ONE">
+      <point x="-46.83300000000003" y="-83.5" />
+      <point x="-14.999666666666712" y="94.5" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.handler.Handler" target="ch.baselzock.twittertagsorter.converter.Converter" relationship="TO_ONE">
+      <point x="-178.0" y="0.0" />
+      <point x="-7.0" y="1234.4311512415352" />
+      <point x="-7.0" y="495.0" />
+      <point x="-103.0" y="0.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.handler.Handler" target="ch.baselzock.twittertagsorter.converter.ConverterFactory" relationship="DEPENDENCY">
+      <point x="29.0308066215199" y="-161.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.model.Tweet" target="ch.baselzock.twittertagsorter.model.Tweet" relationship="DEPENDENCY">
+      <point x="0.0" y="83.5" />
+      <point x="359.5" y="431.0" />
+      <point x="359.5" y="431.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.converter.JsonConverter" target="ch.baselzock.twittertagsorter.Main" relationship="DEPENDENCY">
+      <point x="47.015499999999975" y="73.0" />
+      <point x="430.633" y="1040.999" />
+      <point x="552.0" y="1040.999" />
+      <point x="552.0" y="1290.859" />
+      <point x="-74.49999623777285" y="-14.999916478555633" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.model.TwitterUser" target="ch.baselzock.twittertagsorter.model.TwitterUser" relationship="DEPENDENCY">
+      <point x="3.3333333328755543E-4" y="94.5" />
+      <point x="327.667" y="214.0" />
+      <point x="327.667" y="214.0" />
+      <point x="3.3333333328755543E-4" y="94.5" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.converter.JsonConverter" target="ch.baselzock.twittertagsorter.converter.Converter" relationship="REALIZATION">
+      <point x="-95.5" y="-73.0" />
+      <point x="48.50416666666666" y="39.0" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.Main" target="ch.baselzock.twittertagsorter.helper.PooledConnectionHelper" relationship="DEPENDENCY">
+      <point x="59.339764860797686" y="-51.0" />
+      <point x="-253.5" y="39.5" />
+    </edge>
+    <edge source="ch.baselzock.twittertagsorter.converter.ConverterFactory" target="ch.baselzock.twittertagsorter.converter.Converter" relationship="DEPENDENCY">
+      <point x="-36.01947328818659" y="-39.5" />
+      <point x="0.0" y="39.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6696900982615268" showDependencies="true" x="534.5" y="814.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
