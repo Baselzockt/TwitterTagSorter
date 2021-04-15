@@ -13,20 +13,10 @@ public class SorterTest {
 
     private static final Sorter sorter = new Sorter();
 
-    @BeforeAll
-    static void setupSorter() {
-        ArrayList<String> tags = new ArrayList<>();
-        tags.add("test");
-        tags.add("zmorge");
-        tags.add("zmittag");
-        tags.add("A good tag");
-        tags.add("");
-        sorter.setTags(tags);
-    }
 
     @Test
     void testText() {
-        String text = "test test ttest testetsttets hallo welt :D zmorge";
+        String text = "test #test # ttest testetsttets hallo welt :D #zmorge";
         List<String> tags = sorter.getMatchingTags(text);
         assertNotNull(tags);
         assertTrue(tags.contains("test"));
@@ -46,7 +36,7 @@ public class SorterTest {
 
     @Test
     void testNoMatchingTags() {
-        String text = "this text does not contain a tag but it is good and has an A. good A tag";
+        String text = "this text does # ## not contain a tag but it is good and has an A. good A tag";
         List<String> tags = sorter.getMatchingTags(text);
         assertNotNull(tags);
         assertTrue(tags.isEmpty());

@@ -27,7 +27,6 @@ services:
     restart: on-failure
     environment:
       - "ENDPOINT=tcp://activemq:61616"
-      - "TAGS=Covid,Impfen,Homeoffice,Arbeiten,Gesundheit,unhöflich,genmanipulierung,5G"
   twitter-api:
     networks:
       - twittersort

@@ -9,7 +9,6 @@ public class PooledConnectionHelper {
         final PooledConnectionFactory pooledConnectionFactory =
                 new org.apache.activemq.pool.PooledConnectionFactory();
         pooledConnectionFactory.setConnectionFactory(connectionFactory);
-        pooledConnectionFactory.setMaxConnections(10);
         return pooledConnectionFactory;
     }
 }

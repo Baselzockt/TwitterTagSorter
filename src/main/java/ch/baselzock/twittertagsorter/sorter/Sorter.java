@@ -2,29 +2,25 @@ package ch.baselzock.twittertagsorter.sorter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Sorter {
-    private List<String> tags;
 
-    public Sorter() {
-        this.tags = new ArrayList<>();
-    }
+    private final Pattern tagPattern = Pattern.compile("#([^\s#]+)");
 
     public List<String> getMatchingTags(String text) {
         ArrayList<String> tags = new ArrayList<>();
         if (text == null) {
             return tags;
         }
+        Matcher tagMatcher = tagPattern.matcher(text);
 
-        this.tags.forEach(tag -> {
-            if (!tag.isEmpty() && text.contains(tag)) {
-                tags.add(tag);
-            }
-        });
+        while (tagMatcher.find()) {
+            tags.add(tagMatcher.group(1));
+        }
+
         return tags;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
 }

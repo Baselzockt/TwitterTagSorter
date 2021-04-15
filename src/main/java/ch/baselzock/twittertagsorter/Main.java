@@ -8,8 +8,8 @@ import org.apache.activemq.jms.pool.PooledConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jms.*;
-import java.util.Arrays;
+import javax.jms.Connection;
+import javax.jms.JMSException;
 
 
 public class Main {
@@ -27,10 +27,6 @@ public class Main {
         connection.start();
         LOGGER.debug("Creating Sorter");
         Sorter sorter = new Sorter();
-        LOGGER.debug("Adding tags");
-        String[] tags = System.getenv("TAGS").split(",");
-        sorter.setTags(Arrays.stream(tags).toList());
-        LOGGER.debug("Added {} tags", tags.length);
         LOGGER.debug("Creating Handler");
         Handler handler = new Handler(sorter, connection);
         LOGGER.debug("Start handling tweets from activemq");
