@@ -20,6 +20,10 @@ public class Sorter {
             tags.add(tagMatcher.group(1));
         }
 
+        if(tags.isEmpty()){
+            tags.add("noTagZone");
+        }
+
         return tags;
     }
 

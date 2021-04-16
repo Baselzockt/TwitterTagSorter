@@ -39,7 +39,8 @@ public class SorterTest {
         String text = "this text does # ## not contain a tag but it is good and has an A. good A tag";
         List<String> tags = sorter.getMatchingTags(text);
         assertNotNull(tags);
-        assertTrue(tags.isEmpty());
+        assertFalse(tags.isEmpty());
+        assertTrue(tags.contains("noTagZone"));
     }
 
 

@@ -60,6 +60,7 @@ public class Handler {
         consumer.close();
 
         if (message == null) {
+            LOGGER.debug("Message was null");
             return;
         }
 
@@ -72,7 +73,9 @@ public class Handler {
 
         List<String> tags = sorter.getMatchingTags(tweet.getText());
 
+        LOGGER.debug("Start sending message to activeMQ");
         for (String tag : tags) {
+            LOGGER.debug("Sending to topic {}", tag);
             sendTweetToTopic(tweet, session, tag);
             session.commit();
         }
@@ -84,6 +87,7 @@ public class Handler {
         MessageProducer producer = this.createMessageProducer(session, tag);
         String text = converter.convertToString(tweet);
         if (text != null) {
+            LOGGER.debug("Sending tweet");
             TextMessage textMessage = session.createTextMessage(text);
             producer.send(textMessage);
             producer.close();
