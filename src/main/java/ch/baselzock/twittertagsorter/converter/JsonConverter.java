@@ -18,6 +18,7 @@ public class JsonConverter implements Converter {
         if (text == null) {
             return null;
         }
+        text = text.replaceAll("\n", "");
 
         try {
             return mapper.readValue(text, Tweet.class);

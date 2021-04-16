@@ -17,7 +17,7 @@ public class JsonConverterTest {
         String json = "{" +
                 " \"created_at\": \"Wed Oct 10 20:19:24 +0000 2018\",\n" +
                 " \"id\": 1050118621198921728,\n" +
-                " \"id_str\": \"1050118621198921728\",\n" +
+                " \"id_str\": \"1050118621198921728\n\",\n" +
                 " \"text\": \"" + expected + "\",\n" +
                 " \"user\": {},  \n" +
                 " \"entities\": {}\n" +
@@ -46,10 +46,10 @@ public class JsonConverterTest {
                 "\"user\":{" +
                 "\"id\":0," +
                 "\"name\":null," +
-                "\"description\":null," +
+                "\"description\n\":null," +
                 "\"verified\":false," +
                 "\"protected\":false," +
-                "\"created_at\":null}," +
+                "\"created_at\n\":null}," +
                 "\"retweetCount\":0,\"created_at\":\"Wed Oct 10 20:19:24 +0000 2018\"},";
         Tweet tweet = converter.convertToTweet(json);
         assertNotNull(tweet);

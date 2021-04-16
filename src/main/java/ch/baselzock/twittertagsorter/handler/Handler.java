@@ -5,10 +5,8 @@ import ch.baselzock.twittertagsorter.converter.ConverterFactory;
 import ch.baselzock.twittertagsorter.converter.ConverterType;
 import ch.baselzock.twittertagsorter.model.Tweet;
 import ch.baselzock.twittertagsorter.sorter.Sorter;
-import org.apache.activemq.ActiveMQMessageProducer;
 import org.apache.activemq.command.ActiveMQBytesMessage;
 import org.apache.activemq.command.ActiveMQTextMessage;
-import org.apache.activemq.jms.pool.PooledSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +32,6 @@ public class Handler {
 
     /**
      * Gets Tweets from a activeMQ queue, sorts them corresponding to tags and then writes them into ActiveMq topics
-     *
-     * @throws JMSException
      */
     public void Handle() {
         try {
@@ -46,6 +42,7 @@ public class Handler {
                 try {
                     processMessage(session);
                 } catch (JMSException e) {
+                    LOGGER.error("Handling message failed");
                     LOGGER.error(e.getMessage());
                     session.rollback();
                 }
@@ -79,7 +76,6 @@ public class Handler {
             sendTweetToTopic(tweet, session, tag);
             session.commit();
         }
-
         session.commit();
     }
 
@@ -117,7 +113,13 @@ public class Handler {
     }
 
     private MessageProducer createMessageProducer(Session session, String tag) throws JMSException {
-        Destination tagDestination = session.createTopic(tag);
+        Destination tagDestination;
+        if (test) {
+            tagDestination = session.createQueue(tag);
+        } else {
+            tagDestination = session.createTopic(tag);
+        }
+
         LOGGER.debug("Sending message to: {}", tag);
         return session.createProducer(tagDestination);
     }
