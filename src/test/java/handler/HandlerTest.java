@@ -1,8 +1,8 @@
 package handler;
 
-import ch.baselzock.twittertagsorter.handler.Handler;
-import ch.baselzock.twittertagsorter.helper.PooledConnectionHelper;
 import ch.baselzock.twittertagsorter.sorter.Sorter;
+import ch.baselzock.twittertagsorter.helper.PooledConnectionHelper;
+import ch.baselzock.twittertagsorter.tagmatcher.TagMatcher;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQTextMessage;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
@@ -67,12 +67,12 @@ public class HandlerTest {
         session.commit();
 
 
-        Sorter sorter = new Sorter();
+        TagMatcher tagMatcher = new TagMatcher();
 
-        Handler handler = new Handler(sorter, connection);
-        handler.setTest(true);
+        Sorter sorter = new Sorter(tagMatcher, connection);
+        sorter.setTest(true);
 
-        handler.Handle();
+        sorter.start();
 
         Destination receiveDestination = session.createQueue("#tree");
         MessageConsumer consumer = session.createConsumer(receiveDestination);
@@ -105,12 +105,12 @@ public class HandlerTest {
         session.commit();
 
 
-        Sorter sorter = new Sorter();
+        TagMatcher tagMatcher = new TagMatcher();
 
-        Handler handler = new Handler(sorter, connection);
-        handler.setTest(true);
+        Sorter sorter = new Sorter(tagMatcher, connection);
+        sorter.setTest(true);
 
-        handler.Handle();
+        sorter.start();
 
         Destination receiveDestination = session.createQueue("#tree");
         MessageConsumer consumer = session.createConsumer(receiveDestination);
@@ -130,12 +130,12 @@ public class HandlerTest {
         final Connection connection = pooledConnectionFactory.createConnection();
         connection.start();
 
-        Sorter sorter = new Sorter();
+        TagMatcher tagMatcher = new TagMatcher();
 
-        Handler handler = new Handler(sorter, connection);
-        handler.setTest(true);
+        Sorter sorter = new Sorter(tagMatcher, connection);
+        sorter.setTest(true);
 
-        handler.Handle();
+        sorter.start();
 
         Session session = connection.createSession(true, Session.SESSION_TRANSACTED);
 

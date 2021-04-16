@@ -1,8 +1,8 @@
 package ch.baselzock.twittertagsorter;
 
-import ch.baselzock.twittertagsorter.handler.Handler;
-import ch.baselzock.twittertagsorter.helper.PooledConnectionHelper;
 import ch.baselzock.twittertagsorter.sorter.Sorter;
+import ch.baselzock.twittertagsorter.helper.PooledConnectionHelper;
+import ch.baselzock.twittertagsorter.tagmatcher.TagMatcher;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
@@ -33,11 +33,11 @@ public class Main {
         LOGGER.debug("Starting connection");
         connection.start();
         LOGGER.debug("Creating Sorter");
-        Sorter sorter = new Sorter();
+        TagMatcher tagMatcher = new TagMatcher();
         LOGGER.debug("Creating Handler");
-        Handler handler = new Handler(sorter, connection);
+        Sorter sorter = new Sorter(tagMatcher, connection);
         LOGGER.debug("Start handling tweets from activemq");
-        handler.Handle();
+        sorter.start();
         connection.close();
     }
 
