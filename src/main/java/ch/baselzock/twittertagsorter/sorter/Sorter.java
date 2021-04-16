@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class Sorter {
 
-    private final Pattern tagPattern = Pattern.compile("#([^\s#]+)");
+    private final Pattern tagPattern = Pattern.compile("#[^\s#]+");
 
     public List<String> getMatchingTags(String text) {
         ArrayList<String> tags = new ArrayList<>();
@@ -17,10 +17,10 @@ public class Sorter {
         Matcher tagMatcher = tagPattern.matcher(text);
 
         while (tagMatcher.find()) {
-            tags.add(tagMatcher.group(1));
+            tags.add(tagMatcher.group());
         }
 
-        if(tags.isEmpty()){
+        if (tags.isEmpty()) {
             tags.add("noTagZone");
         }
 

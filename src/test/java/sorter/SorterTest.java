@@ -19,11 +19,12 @@ public class SorterTest {
         String text = "test #test # ttest testetsttets hallo welt :D #zmorge";
         List<String> tags = sorter.getMatchingTags(text);
         assertNotNull(tags);
-        assertTrue(tags.contains("test"));
-        assertTrue(tags.contains("zmorge"));
-        assertFalse(tags.contains("zmittag"));
-        assertFalse(tags.contains("A good tag"));
+        assertTrue(tags.contains("#test"));
+        assertTrue(tags.contains("#zmorge"));
+        assertFalse(tags.contains("#zmittag"));
+        assertFalse(tags.contains("#A good tag"));
         assertFalse(tags.contains(""));
+        assertFalse(tags.contains("#"));
     }
 
     @Test

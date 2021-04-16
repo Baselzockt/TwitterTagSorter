@@ -74,7 +74,7 @@ public class HandlerTest {
 
         handler.Handle();
 
-        Destination receiveDestination = session.createQueue("tree");
+        Destination receiveDestination = session.createQueue("#tree");
         MessageConsumer consumer = session.createConsumer(receiveDestination);
         Message msg = consumer.receive(1000);
         assertNotNull(msg);
@@ -112,7 +112,7 @@ public class HandlerTest {
 
         handler.Handle();
 
-        Destination receiveDestination = session.createQueue("tree");
+        Destination receiveDestination = session.createQueue("#tree");
         MessageConsumer consumer = session.createConsumer(receiveDestination);
         Message msg = consumer.receive(1000);
         assertNull(msg);
