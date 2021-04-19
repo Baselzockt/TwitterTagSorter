@@ -2,7 +2,6 @@ package ch.baselzock.twittertagsorter;
 
 import ch.baselzock.twittertagsorter.sorter.Sorter;
 import ch.baselzock.twittertagsorter.helper.PooledConnectionHelper;
-import ch.baselzock.twittertagsorter.tagmatcher.TagMatcher;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
@@ -19,11 +18,12 @@ public class Main {
     public static void main(String[] args) throws JMSException {
         LOGGER.debug("Getting ActiveMQConnectionFactory for endpoint: {}", System.getenv("ENDPOINT"));
         final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(System.getenv("ENDPOINT"));
+        LOGGER.debug("Setting redelivery policy");
         RedeliveryPolicy policy = connectionFactory.getRedeliveryPolicy();
         policy.setInitialRedeliveryDelay(50);
-        policy.setBackOffMultiplier(1);
+        policy.setBackOffMultiplier(1.5);
         policy.setUseExponentialBackOff(true);
-        policy.setMaximumRedeliveries(1);
+        policy.setMaximumRedeliveries(2);
         connectionFactory.setRedeliveryPolicy(policy);
         LOGGER.debug("Getting pooled Connection Factory");
         final PooledConnectionFactory pooledConnectionFactory =
@@ -32,10 +32,8 @@ public class Main {
         final Connection connection = connectionFactory.createConnection();
         LOGGER.debug("Starting connection");
         connection.start();
-        LOGGER.debug("Creating Sorter");
-        TagMatcher tagMatcher = new TagMatcher();
         LOGGER.debug("Creating Handler");
-        Sorter sorter = new Sorter(tagMatcher, connection);
+        Sorter sorter = new Sorter(connection);
         LOGGER.debug("Start handling tweets from activemq");
         sorter.start();
         connection.close();

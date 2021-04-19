@@ -64,4 +64,5 @@ public class JsonConverterTest {
         String actual = converter.convertToString(null);
         assertNull(actual);
     }
+
 }

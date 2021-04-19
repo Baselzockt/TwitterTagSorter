@@ -20,8 +20,8 @@ public class Sorter {
     private final Connection connection;
     private boolean test;
 
-    public Sorter(TagMatcher tagMatcher, Connection connection) {
-        this.tagMatcher = tagMatcher;
+    public Sorter(Connection connection) {
+        this.tagMatcher = new TagMatcher();
         this.connection = connection;
         this.test = false;
     }
@@ -71,7 +71,7 @@ public class Sorter {
             return;
         }
 
-        List<String> tags = tagMatcher.getMatchingTags(tweet.getText());
+        List<String> tags = tagMatcher.getAllTags(tweet.getText());
 
         LOGGER.debug("Start sending message to activeMQ");
         for (String tag : tags) {
@@ -80,18 +80,6 @@ public class Sorter {
             session.commit();
         }
         session.commit();
-    }
-
-
-    private void sendTweetToTopic(Tweet tweet, Session session, String tag) throws JMSException {
-        MessageProducer producer = this.createMessageProducer(session, tag);
-        String text = converter.convertToString(tweet);
-        if (text != null) {
-            LOGGER.debug("Sending tweet");
-            TextMessage textMessage = session.createTextMessage(text);
-            producer.send(textMessage);
-            producer.close();
-        }
     }
 
     private MessageConsumer createMessageConsumer(Session session) throws JMSException {
@@ -116,9 +104,21 @@ public class Sorter {
         return new String(byteArr);
     }
 
+    private void sendTweetToTopic(Tweet tweet, Session session, String tag) throws JMSException {
+        MessageProducer producer = this.createMessageProducer(session, tag);
+        String text = converter.convertToString(tweet);
+        if (text != null) {
+            LOGGER.debug("Sending tweet");
+            TextMessage textMessage = session.createTextMessage(text);
+            producer.send(textMessage);
+            producer.close();
+        }
+    }
+
     private MessageProducer createMessageProducer(Session session, String tag) throws JMSException {
         Destination tagDestination;
         if (test) {
+            //cannot get message from Topic with embedded broker using queue instead
             tagDestination = session.createQueue(tag);
         } else {
             tagDestination = session.createTopic(tag);

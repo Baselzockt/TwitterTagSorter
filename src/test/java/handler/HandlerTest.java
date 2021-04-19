@@ -66,10 +66,7 @@ public class HandlerTest {
         producer.close();
         session.commit();
 
-
-        TagMatcher tagMatcher = new TagMatcher();
-
-        Sorter sorter = new Sorter(tagMatcher, connection);
+        Sorter sorter = new Sorter(connection);
         sorter.setTest(true);
 
         sorter.start();
@@ -104,10 +101,7 @@ public class HandlerTest {
         producer.close();
         session.commit();
 
-
-        TagMatcher tagMatcher = new TagMatcher();
-
-        Sorter sorter = new Sorter(tagMatcher, connection);
+        Sorter sorter = new Sorter(connection);
         sorter.setTest(true);
 
         sorter.start();
@@ -130,9 +124,7 @@ public class HandlerTest {
         final Connection connection = pooledConnectionFactory.createConnection();
         connection.start();
 
-        TagMatcher tagMatcher = new TagMatcher();
-
-        Sorter sorter = new Sorter(tagMatcher, connection);
+        Sorter sorter = new Sorter(connection);
         sorter.setTest(true);
 
         sorter.start();

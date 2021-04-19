@@ -1,4 +1,4 @@
-package sorter;
+package tagmatcher;
 
 import ch.baselzock.twittertagsorter.tagmatcher.TagMatcher;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class TagMatcherTest {
     @Test
     void testText() {
         String text = "test #test # ttest testetsttets hallo welt :D #zmorge";
-        List<String> tags = TAG_MATCHER.getMatchingTags(text);
+        List<String> tags = TAG_MATCHER.getAllTags(text);
         assertNotNull(tags);
         assertTrue(tags.contains("#test"));
         assertTrue(tags.contains("#zmorge"));
@@ -28,7 +28,7 @@ public class TagMatcherTest {
     @Test
     void testNull() {
         TagMatcher nullTagMatcher = new TagMatcher();
-        List<String> tags = nullTagMatcher.getMatchingTags(null);
+        List<String> tags = nullTagMatcher.getAllTags(null);
         assertNotNull(tags);
         assertTrue(tags.isEmpty());
     }
@@ -36,7 +36,7 @@ public class TagMatcherTest {
     @Test
     void testNoMatchingTags() {
         String text = "this text does # ## not contain a tag but it is good and has an A. good A tag";
-        List<String> tags = TAG_MATCHER.getMatchingTags(text);
+        List<String> tags = TAG_MATCHER.getAllTags(text);
         assertNotNull(tags);
         assertFalse(tags.isEmpty());
         assertTrue(tags.contains("noTagZone"));

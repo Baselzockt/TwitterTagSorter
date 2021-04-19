@@ -8,8 +8,17 @@ import java.util.regex.Pattern;
 public class TagMatcher {
 
     private final Pattern tagPattern = Pattern.compile("#[^\s#]+");
+    private final String noTagDestination;
 
-    public List<String> getMatchingTags(String text) {
+    public TagMatcher() {
+        noTagDestination = "noTagZone";
+    }
+
+    public TagMatcher(String nn) {
+        noTagDestination = nn;
+    }
+
+    public List<String> getAllTags(String text) {
         ArrayList<String> tags = new ArrayList<>();
         if (text == null) {
             return tags;
@@ -21,7 +30,7 @@ public class TagMatcher {
         }
 
         if (tags.isEmpty()) {
-            tags.add("noTagZone");
+            tags.add(noTagDestination);
         }
 
         return tags;
