@@ -1,8 +1,7 @@
-package handler;
+package sorter;
 
 import ch.baselzock.twittertagsorter.sorter.Sorter;
 import ch.baselzock.twittertagsorter.helper.PooledConnectionHelper;
-import ch.baselzock.twittertagsorter.tagmatcher.TagMatcher;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQTextMessage;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
@@ -16,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import javax.jms.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class HandlerTest {
+public class SorterTest {
     @Test
     @Order(1)
-    void testHandler() throws JMSException {
+    void testSorter() throws JMSException {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
         final PooledConnectionFactory pooledConnectionFactory =
                 PooledConnectionHelper.createPooledConnectionFactory(connectionFactory);
@@ -69,7 +68,7 @@ public class HandlerTest {
         Sorter sorter = new Sorter(connection);
         sorter.setTest(true);
 
-        sorter.start();
+        sorter.run();
 
         Destination receiveDestination = session.createQueue("#tree");
         MessageConsumer consumer = session.createConsumer(receiveDestination);
@@ -104,7 +103,7 @@ public class HandlerTest {
         Sorter sorter = new Sorter(connection);
         sorter.setTest(true);
 
-        sorter.start();
+        sorter.run();
 
         Destination receiveDestination = session.createQueue("#tree");
         MessageConsumer consumer = session.createConsumer(receiveDestination);
@@ -127,7 +126,7 @@ public class HandlerTest {
         Sorter sorter = new Sorter(connection);
         sorter.setTest(true);
 
-        sorter.start();
+        sorter.run();
 
         Session session = connection.createSession(true, Session.SESSION_TRANSACTED);
 
