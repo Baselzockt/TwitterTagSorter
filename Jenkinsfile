@@ -4,14 +4,17 @@ pipeline {
         maven 'Maven 3.8.4' 
         jdk 'JDK 17.0.2' 
     }
-    stages {
-        stage('Initialization') {
+ stages {
+        stage ('Initialize') {
             steps {
-                sh 'printenv'
-                sh 'javac --version'
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
             }
         }
-       stage ('Build') {
+
+        stage ('Build') {
             steps {
                 sh 'mvn -Dmaven.test.failure.ignore=true install' 
             }
