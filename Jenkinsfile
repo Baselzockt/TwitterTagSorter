@@ -28,6 +28,6 @@ pipeline {
     jdk 'JDK 17.0.2'
   }
   environment {
-    JAVA_HOME = 'data/tools/hudson.model.JDK/JDK_17.0.2/'
+    JAVA_HOME = '/home/ubuntu/jenkins/data/tools/hudson.model.JDK/JDK_17.0.2'
   }
 }
