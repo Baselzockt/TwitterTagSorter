@@ -3,22 +3,21 @@ pipeline {
   stages {
     stage('Initialize') {
       steps {
-        sh '''
-                        echo "PATH = ${PATH}"
-                        echo "M2_HOME = ${M2_HOME}"
+        sh '''echo "PATH = ${PATH}"
+echo "M2_HOME = ${M2_HOME}"
                     '''
       }
     }
 
-    stage('Build') {
-      post {
-        success {
-          junit 'target/surefire-reports/**/*.xml'
-        }
-
-      }
+    stage('Maven Setup') {
       steps {
-        sh 'mvn -Dmaven.test.failure.ignore=true install'
+        withMaven()
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'mvn clean install'
       }
     }
 
