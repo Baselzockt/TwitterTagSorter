@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Initialization') {
             steps {
-                sh 'echo %JAVA_HOME%'
+                sh 'printenv'
                 sh 'javac --version'
             }
         }
