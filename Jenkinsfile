@@ -5,6 +5,12 @@ pipeline {
         jdk 'JDK 17.0.2' 
     }
     stages {
+        stage('Initialization') {
+            steps {
+                sh 'echo %JAVA_HOME%'
+                sh 'javac --version'
+            }
+        }
        stage ('Build') {
             steps {
                 sh 'mvn -Dmaven.test.failure.ignore=true install' 
