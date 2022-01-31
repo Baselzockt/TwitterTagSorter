@@ -11,13 +11,10 @@ echo "M2_HOME = ${M2_HOME}"
 
     stage('Maven Setup') {
       steps {
-        withMaven()
-      }
-    }
+        withMaven(publisherStrategy: 'EXPLICIT') {
+          sh 'mvn clean install'
+        }
 
-    stage('Build') {
-      steps {
-        sh 'mvn clean install'
       }
     }
 
