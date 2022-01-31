@@ -11,7 +11,7 @@ echo "M2_HOME = ${M2_HOME}"
 
     stage('Build') {
       steps {
-        withMaven() {
+        withMaven(jdk: 'tools/hudson.model.JDK/JDK_17.0.2/jdk-17.0.2') {
           sh 'mvn install'
         }
 
